@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: wdd330-sleepoutside
+    runtime: static
+    repo: https://github.com/Lendherm/wdd330-sleepoutside
+    branch: main
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
