@@ -1,13 +1,33 @@
 import { getLocalStorage } from './utils.mjs';
 
 function renderCartContents() {
-  const cartItems = getLocalStorage('so-cart') || [];
+  const cartItems = getLocalStorage('so-cart');
+  const productList = document.querySelector('.product-list');
+  const cartFooter = document.querySelector('.cart-footer');
+  const cartTotalEl = document.querySelector('.cart-total');
+
+  // Empty / missing cart should not throw (Empty Card Error: cart.html)
   if (!Array.isArray(cartItems) || cartItems.length === 0) {
-    document.querySelector('.product-list').innerHTML = '';
+    productList.innerHTML =
+      '<li class="cart-empty">Your cart is empty. <a href="/index.html">Continue shopping</a></li>';
+    if (cartFooter) {
+      cartFooter.classList.add('hide');
+    }
     return;
   }
+
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  productList.innerHTML = htmlItems.join('');
+
+  // Total$ in Cart
+  const total = cartItems.reduce(
+    (sum, item) => sum + Number(item.FinalPrice || 0),
+    0,
+  );
+  if (cartFooter && cartTotalEl) {
+    cartFooter.classList.remove('hide');
+    cartTotalEl.textContent = `Total: $${total.toFixed(2)}`;
+  }
 }
 
 function cartItemTemplate(item) {

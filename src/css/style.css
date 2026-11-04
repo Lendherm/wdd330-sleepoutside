@@ -241,6 +241,28 @@ button {
   grid-column: 3;
 }
 
+.hide {
+  display: none;
+}
+
+.cart-empty {
+  list-style: none;
+  padding: 1.25rem 0;
+  color: var(--dark-grey, #525b63);
+}
+
+.cart-footer {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #ddd;
+  text-align: right;
+}
+
+.cart-total {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
