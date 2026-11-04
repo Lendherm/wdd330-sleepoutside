@@ -9,7 +9,8 @@ function convertToJson(res) {
 export default class ProductData {
   constructor(category) {
     this.category = category;
-    this.path = `../json/${this.category}.json`;
+    // Files in src/public are served from the site root by Vite
+    this.path = `/json/${this.category}.json`;
   }
   getData() {
     return fetch(this.path)
