@@ -8,14 +8,8 @@ export default class ProductDetails {
   }
 
   async init() {
-    // use the datasource to get the details for the current product
     this.product = await this.dataSource.findProductById(this.productId);
-
-    // the product details are needed before rendering the HTML
     this.renderProductDetails();
-
-    // once the HTML is rendered, add a listener to the Add to Cart button
-    // Notice the .bind(this). Without it, `this` inside addToCart would not be the class instance.
     document
       .getElementById('addToCart')
       .addEventListener('click', this.addToCart.bind(this));
@@ -30,7 +24,12 @@ export default class ProductDetails {
     if (!Array.isArray(cartItems)) {
       cartItems = [cartItems];
     }
-    cartItems.push(product);
+    // Keep a simple Image field for the cart template
+    const cartProduct = {
+      ...product,
+      Image: product.Images?.PrimaryMedium || product.Image,
+    };
+    cartItems.push(cartProduct);
     setLocalStorage('so-cart', cartItems);
   }
 
@@ -38,13 +37,16 @@ export default class ProductDetails {
     document.querySelector('title').textContent =
       `Sleep Outside | ${this.product.NameWithoutBrand}`;
 
+    const image =
+      this.product.Images?.PrimaryLarge || this.product.Image || '';
+
     const productDetail = document.querySelector('.product-detail');
     productDetail.innerHTML = `
       <h3>${this.product.Brand.Name}</h3>
       <h2 class="divider">${this.product.NameWithoutBrand}</h2>
       <img
         class="divider"
-        src="${this.product.Image}"
+        src="${image}"
         alt="${this.product.Name}"
       />
       <p class="product-card__price">$${this.product.FinalPrice}</p>
