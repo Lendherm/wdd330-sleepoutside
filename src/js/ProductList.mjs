@@ -21,7 +21,9 @@ export default class ProductList {
 
   async init() {
     const list = await this.dataSource.getData();
-    this.renderList(list);
+    // tents.json has extras without detail pages / images yet
+    const ids = ['880RR', '985RF', '985PR', '344YJ'];
+    this.renderList(list.filter((item) => ids.includes(item.Id)));
   }
 
   renderList(list) {
