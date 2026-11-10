@@ -156,6 +156,39 @@ button {
   padding: 1rem;
 }
 
+.product-grid {
+  display: flex;
+  flex-flow: row wrap;
+  list-style-type: none;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+  padding: 0;
+}
+
+.product-grid li {
+  flex: 1 1 140px;
+  max-width: 180px;
+  text-align: center;
+}
+
+.product-grid a {
+  text-decoration: none;
+  color: var(--dark-grey);
+  display: block;
+}
+
+.product-grid img {
+  width: 100%;
+  max-width: 140px;
+  margin: 0 auto;
+}
+
+.product-grid h2 {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
 .product-list {
   display: flex;
   flex-flow: row wrap;
