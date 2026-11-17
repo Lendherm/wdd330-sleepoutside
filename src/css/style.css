@@ -131,6 +131,28 @@ button {
   fill: gray;
 }
 
+.cart-count {
+  position: absolute;
+  top: 0.35rem;
+  right: -0.15rem;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  background-color: var(--primary-color);
+  color: var(--dark-grey);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-count.hide {
+  display: none;
+}
+
 /* End cart icon styles */
 
 .mission {
@@ -154,6 +176,39 @@ button {
 .products {
   margin-top: 2rem;
   padding: 1rem;
+}
+
+.product-grid {
+  display: flex;
+  flex-flow: row wrap;
+  list-style-type: none;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+  padding: 0;
+}
+
+.product-grid li {
+  flex: 1 1 140px;
+  max-width: 180px;
+  text-align: center;
+}
+
+.product-grid a {
+  text-decoration: none;
+  color: var(--dark-grey);
+  display: block;
+}
+
+.product-grid img {
+  width: 100%;
+  max-width: 140px;
+  margin: 0 auto;
+}
+
+.product-grid h2 {
+  font-size: 1rem;
+  margin-top: 0.5rem;
 }
 
 .product-list {
@@ -261,6 +316,72 @@ button {
 .cart-total {
   font-size: 1.2em;
   font-weight: 700;
+}
+
+.checkout-button {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--secondary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.checkout {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.checkout h2 {
+  grid-column: 1 / -1;
+}
+
+.checkout-form fieldset {
+  border: 1px solid var(--light-grey);
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.checkout-form legend {
+  font-weight: 700;
+  padding: 0 0.35rem;
+}
+
+.checkout-form label {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.checkout-form input {
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 4px;
+  font: inherit;
+}
+
+.order-summary {
+  border: 1px solid var(--light-grey);
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fafafa;
+  height: fit-content;
+}
+
+.order-summary .order-total {
+  font-weight: 700;
+  margin-top: 0.75rem;
+}
+
+@media screen and (min-width: 700px) {
+  .checkout {
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+  }
 }
 
 @media screen and (min-width: 500px) {

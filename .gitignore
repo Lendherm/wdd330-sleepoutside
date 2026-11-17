@@ -5,3 +5,9 @@ web_modules
 node_modules
 dist
 .env
+
+.github/info.exe
+.github/trello-*.txt
+.github/*.exe
+.env.local
+src/.env
