@@ -2,6 +2,7 @@ import {
   getLocalStorage,
   setLocalStorage,
   qs,
+  alertMessage,
 } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
 
@@ -21,6 +22,19 @@ function packageItems(items) {
     price: item.FinalPrice,
     quantity: 1,
   }));
+}
+
+function formatServicesError(message) {
+  if (!message) return 'There was a problem submitting your order.';
+  if (typeof message === 'string') return message;
+  // Server often returns { message: { field: "reason", ... } } or flat field map
+  const details = message.message && typeof message.message === 'object'
+    ? message.message
+    : message;
+  if (typeof details === 'string') return details;
+  return Object.entries(details)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join('<br>');
 }
 
 export default class CheckoutProcess {
@@ -90,10 +104,19 @@ export default class CheckoutProcess {
     order.shipping = this.shipping;
     order.items = packageItems(this.list);
 
-    const response = await this.services.checkout(order);
-    console.log('Checkout response:', response);
-    setLocalStorage(this.key, []);
-    return response;
+    try {
+      const response = await this.services.checkout(order);
+      console.log('Checkout response:', response);
+      setLocalStorage(this.key, []);
+      window.location.assign('/checkout/success.html');
+    } catch (err) {
+      console.error(err);
+      if (err.name === 'servicesError') {
+        alertMessage(formatServicesError(err.message));
+      } else {
+        alertMessage(err.message || 'There was a problem submitting your order.');
+      }
+    }
   }
 }
 
@@ -109,23 +132,16 @@ export function listenForCheckout(checkout) {
 
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
+    const isValid = form.checkValidity();
+    form.reportValidity();
+    if (!isValid) return;
+
     if (!checkout.list.length) {
-      alert('Your cart is empty.');
+      alertMessage('Your cart is empty.');
       return;
     }
-    // Ensure totals exist even if zip blur didn't fire yet
+
     checkout.calculateOrderTotal();
-    try {
-      const result = await checkout.checkout(form);
-      alert(`Order submitted successfully.\n${JSON.stringify(result)}`);
-      window.location.href = '/index.html';
-    } catch (err) {
-      console.error(err);
-      alert('There was a problem submitting your order. Check the console.');
-    }
+    await checkout.checkout(form);
   });
 }
