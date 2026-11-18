@@ -20,11 +20,23 @@
             <legend>Customer Name</legend>
             <label for="fname">
               First Name
-              <input type="text" id="fname" name="fname" required />
+              <input
+                type="text"
+                id="fname"
+                name="fname"
+                required
+                autocomplete="given-name"
+              />
             </label>
             <label for="lname">
               Last Name
-              <input type="text" id="lname" name="lname" required />
+              <input
+                type="text"
+                id="lname"
+                name="lname"
+                required
+                autocomplete="family-name"
+              />
             </label>
           </fieldset>
 
@@ -32,19 +44,48 @@
             <legend>Address</legend>
             <label for="street">
               Street Address
-              <input type="text" id="street" name="street" required />
+              <input
+                type="text"
+                id="street"
+                name="street"
+                required
+                autocomplete="street-address"
+              />
             </label>
             <label for="city">
               City
-              <input type="text" id="city" name="city" required />
+              <input
+                type="text"
+                id="city"
+                name="city"
+                required
+                autocomplete="address-level2"
+              />
             </label>
             <label for="state">
               State
-              <input type="text" id="state" name="state" required />
+              <input
+                type="text"
+                id="state"
+                name="state"
+                required
+                pattern="[A-Za-z]{2}"
+                maxlength="2"
+                title="Use a 2-letter state code (e.g. ID)"
+                autocomplete="address-level1"
+              />
             </label>
             <label for="zip">
               Zip Code
-              <input type="text" id="zip" name="zip" required />
+              <input
+                type="text"
+                id="zip"
+                name="zip"
+                required
+                pattern="\d{5}(-\d{4})?"
+                title="Enter a 5-digit ZIP code"
+                autocomplete="postal-code"
+              />
             </label>
           </fieldset>
 
@@ -57,6 +98,11 @@
                 id="cardNumber"
                 name="cardNumber"
                 required
+                pattern="\d{16}"
+                maxlength="16"
+                inputmode="numeric"
+                title="Enter a 16-digit card number"
+                autocomplete="cc-number"
                 value="1234123412341234"
               />
             </label>
@@ -68,12 +114,26 @@
                 name="expiration"
                 placeholder="MM/YY"
                 required
+                pattern="(0[1-9]|1[0-2])\/\d{2}"
+                title="Use MM/YY format"
+                autocomplete="cc-exp"
                 value="12/30"
               />
             </label>
             <label for="code">
               Security Code
-              <input type="text" id="code" name="code" required value="123" />
+              <input
+                type="text"
+                id="code"
+                name="code"
+                required
+                pattern="\d{3,4}"
+                maxlength="4"
+                inputmode="numeric"
+                title="Enter the 3 or 4 digit security code"
+                autocomplete="cc-csc"
+                value="123"
+              />
             </label>
           </fieldset>
 

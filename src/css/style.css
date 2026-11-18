@@ -384,6 +384,39 @@ button {
   }
 }
 
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0 1rem;
+  border-radius: 4px;
+}
+
+.alert p {
+  margin: 0;
+  flex: 1;
+}
+
+.alert span {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0 0.35rem;
+}
+
+.checkout-success {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.checkout-success p {
+  max-width: 36rem;
+  margin: 1rem auto;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
